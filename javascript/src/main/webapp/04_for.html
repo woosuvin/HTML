@@ -25,6 +25,7 @@
         // TODO: 구구단 2단 ~ 9단까지를 이어서 출력.
         let html2 = '';
         for (let n = 2 ; n < 10; n++) {
+        	html2 += `${n}단 <br/>`;
         	for (let m = 1; m < 10; m++) {
         		html2 += `${n} X ${m} = ${n*m} <br/>`;
         	}
@@ -36,6 +37,7 @@
         // TODO: 구구단 2단은 2X2까지, 3단은 3X3, ... , 9단은 9X9까지
         let html3 ='';
         for (let n = 2; n < 10; n++) {
+        	html3 += `${n}단 <br/>`;
         	for (let m = 1; m <= n; m++) {
         		html3 += `${n} X ${m} = ${n*m} <br/>`; 
         	}

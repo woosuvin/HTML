@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>JavaScript 5</title>
+	</head>
+	<body>
+		<h1>while 반복문</h1>
+        <div id='result'></div>
+        
+        <script>
+        const result = document.getElementById('result');
+        
+        let html = '';
+        
+        // 1. 구구단 2단을 while문을 사용해서 div에 출력.
+        let n = 1;
+        while(n < 10) {
+        	html += `2 X ${n} = ${2*n} <br/>`;
+        	n++;
+        }
+        result.innerHTML = html;
+        result.innerHTML += '<hr/>';
+        
+        // 2. 구구단 2단부터 9단까지 while문을 사용해서 div에 출력.
+        html = '';
+        n = 2;
+        while (n < 10) {
+        	let m = 1;
+        	html += `${n}단 <br/>`;
+        	while (m < 10) {
+        		html += `${n} X ${m} = ${n*m} <br/>`;
+        		m++;
+        	}
+        	n++;
+        }
+        result.innerHTML += html;
+        result.innerHTML += '<hr/>';
+        
+        // do-while 반복문
+        html = '<ul>';
+        n = 1;
+        do {
+        	html += `<li>JavaScript ${n}</li>`;
+        	n++;
+        } while (n < 5);
+        html += '<ul>';
+        result.innerHTML += html;
+        
+        </script>
+	</body>
+</html>
