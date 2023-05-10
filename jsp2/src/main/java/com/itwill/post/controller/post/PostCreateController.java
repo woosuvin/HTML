@@ -1,4 +1,4 @@
-package com.itwill.post.controller;
+package com.itwill.post.controller.post;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,24 +8,20 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet implementation class HomeController
+ * Servlet implementation class PostCreateController
  */
-@WebServlet(name = "homeController", urlPatterns = {""})
-// "http://localhost:8081/post/" 요청주소(context root)를 처리하는 서블릿.
-// urlPatterns "" 빈 문자열 -> context root까지만 처리하겠다는 것.
-public class HomeController extends HttpServlet {
+@WebServlet(name = "postCreateController", urlPatterns = { "/post/create" })
+public class PostCreateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 	        throws ServletException, IOException {
-	    System.out.println("homeController.doGet() 호출");
+	    System.out.println("postCreateController.doGet() 호출!");
 	    
-	    // view로 요청을 포워드:
-	    request.getRequestDispatcher("/WEB-INF/main.jsp").forward(request, response);
+	    request.getRequestDispatcher("/WEB-INF/post/create.jsp").forward(request, response);
 	}
 
 }

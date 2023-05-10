@@ -17,10 +17,12 @@ public class PostController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 	        throws ServletException, IOException {
 	    System.out.println("postController.doGet() 호출~");
 	    
+	    // view(jsp)로 요청(request)을 포워드: ("파일이름")
 	    request.getRequestDispatcher("/WEB-INF/post/list.jsp").forward(request, response);
 	}
 
