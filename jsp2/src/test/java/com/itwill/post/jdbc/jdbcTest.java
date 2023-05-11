@@ -18,7 +18,6 @@ import com.itwill.post.model.Post;
 
 import oracle.jdbc.OracleDriver;
 
-
 // JUnit Test(자바 단위 테스트)를 하기 위한 클래스.
 // JDBC(Java Database Connectivity) 테스트 - ojdbc11 라이브러리 동작 여부 테스트.
 // main 메서드를 만들지 않고, 테스트 메서드를 작성하면,

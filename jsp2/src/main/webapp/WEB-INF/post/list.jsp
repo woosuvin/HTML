@@ -25,5 +25,34 @@
             </ul>
         </nav>
         
+        <main>
+            <table>
+                <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>시간</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${ posts }" var="post"> <!-- controller에서 전달받은 리스트 posts -->
+                        <tr>
+                            <td>${ post.id }</td>
+                            <td>
+                                <c:url value="/post/detail" var="postDetail">
+                                    <c:param name="id" value="${ post.id }"></c:param>
+                                </c:url>
+                                <a href="${ postDetail }">${ post.title }</a>
+                            </td>
+                            <td>${ post.author }</td>
+                            <td>${ post.modifiedTime }</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        
+        </main>
+        
 	</body>
 </html>
