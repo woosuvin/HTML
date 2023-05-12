@@ -43,8 +43,27 @@ public class PostService {
     }
     
     public Post selectId(long id) {
-        log.info("selectId({})", id);
+        log.info("selectId(id={})", id);
         
         return postDao.read(id);
     }
+
+    public int delete(long id) {
+        log.info("delete(id={})", id);
+        
+        return postDao.delete(id);
+    }
+
+    public int update(Post post) {
+        log.info("update(post={})", post);
+        
+        return postDao.update(post);
+    }
+
+    public List<Post> search(String category, String keyword) {
+        log.info("search(category={}, keyword={})", category, keyword);
+        
+        return postDao.search(category, keyword);
+    }
+
 }

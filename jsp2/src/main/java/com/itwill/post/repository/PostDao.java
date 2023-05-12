@@ -122,6 +122,7 @@ public class PostDao {
         return result;
     }
     
+    // 포스트 번호로 검색
     private static final String SQL_SELECT_BY_ID = "select * from POSTS where ID = ?";
     public Post read(long id) {
         log.info("read({})", id);
@@ -138,7 +139,7 @@ public class PostDao {
             stmt.setLong(1, id);
             rs = stmt.executeQuery();
             
-            while (rs.next()) {
+            if (rs.next()) {
                 post = recordToPost(rs);
             }
             
@@ -155,6 +156,130 @@ public class PostDao {
         }
         
         return post;
+    }
+
+    // 포스트 아이디(PK)로 삭제하기:
+    private static final String SQL_DELETE = "delete from POSTS where ID = ?";
+    public int delete(long id) {
+        log.info("delete(id={})", id);
+        log.info(SQL_DELETE);
+        
+        int result = 0; // SQL 실행 결과를 저장할 변수
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        try {
+            conn = ds.getConnection();
+            stmt = conn.prepareStatement(SQL_DELETE);
+            stmt.setLong(1, id);
+            result = stmt.executeUpdate();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    // 해당 아이디의 포스트의 제목, 내용, 수정 시간을 업데이트!
+    private static final String SQL_UPDATE = 
+            "update POSTS set TITLE = ?, CONTENT = ?, MODIFIED_TIME = sysdate where ID = ?";
+
+    public int update(Post post) {
+        log.info(SQL_UPDATE);
+        int result = 0;
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        try {
+            conn = ds.getConnection();
+            stmt = conn.prepareStatement(SQL_UPDATE);
+            stmt.setString(1, post.getTitle());
+            stmt.setString(2, post.getContent());
+            stmt.setLong(3, post.getId());
+            
+            result = stmt.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        return result;
+    }
+
+    
+    private static final String SQL_SELECT_BY_KEYWORD = 
+            "select * from POSTS where lower(TITLE) like lower(?) or "
+            + "lower(CONTENT) like lower(?) or "
+            + "lower(AUTHOR) like lower(?) order by ID desc";
+    public List<Post> search(String category, String keyword) {
+        log.info(SQL_SELECT_BY_KEYWORD);
+        
+        List<Post> list = new ArrayList<>();
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            conn = ds.getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT_BY_KEYWORD);
+            
+            if (category.equals("t")) {
+                stmt.setString(1, "%" + keyword + "%");
+                stmt.setString(2, "");
+                stmt.setString(3, "");
+            } else if (category.equals("c")) {
+                stmt.setString(1, "");
+                stmt.setString(2, "%" + keyword + "%");
+                stmt.setString(3, "");
+            } else if (category.equals("tc")) {
+                stmt.setString(1, "%" + keyword + "%");
+                stmt.setString(2, "%" + keyword + "%");
+                stmt.setString(3, "");
+            } else if (category.equals("a")) {
+                stmt.setString(1, "");
+                stmt.setString(2, "");
+                stmt.setString(3, "%" + keyword + "%");
+            }
+            
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                // 태이블의 컬럼 내용을 Post 타입 객체로 변환하고 리스트에 추가
+                Post post = recordToPost(rs);
+                list.add(post);
+            }
+            log.info("list size = {}", list.size());
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+                stmt.close();
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+        return list;
     }
     
     

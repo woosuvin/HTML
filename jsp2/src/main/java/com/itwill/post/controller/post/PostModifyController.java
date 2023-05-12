@@ -14,38 +14,34 @@ import com.itwill.post.model.Post;
 import com.itwill.post.service.PostService;
 
 /**
- * Servlet implementation class PostDetailController
+ * Servlet implementation class PostModifyController
  */
-@WebServlet(name = "postDetailController", urlPatterns = { "/post/detail" })
-public class PostDetailController extends HttpServlet {
+@WebServlet(name = "postModifyController", urlPatterns = { "/post/modify" })
+public class PostModifyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	private static final Logger log = LoggerFactory.getLogger(PostDetailController.class);
 	
+	private static final Logger log = LoggerFactory.getLogger(PostModifyController.class);
 	private final PostService postService = PostService.getInstance();
-	
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 	        throws ServletException, IOException {
-	    
 	    log.info("doGet()");
 	    
-	    // 요청 URL의 쿼리스트링에 포함된 요청 파라미터 id(포스트 번호, PK) 값을 찾음.
-	    String getId = request.getParameter("id"); // getParameter는 문자열만 리턴.
-        long id = Long.parseLong(getId); // id는 숫자 타입이어야 하기 때문에 문자열을 숫자로 리턴.
-	    log.info("id = {}", id);
-        
-	    // DB에서 화면에 보여줄 포스트 내용을 검색.
+	    // 수정할 포스트 번호를 요청 파라미터에서 찾음.
+	    long id = Long.parseLong(request.getParameter("id"));
+	    
+	    // 포스트 번호로 수정할 포스트 내용을 검색.
 	    Post post = postService.selectId(id);
 	    
-	    // view(JSP)에 전달.
+	    // 포스트 객체를 request의 속성 값으로 설정.
 	    request.setAttribute("post", post);
 	    
+	    // 뷰로 포워드
+	    request.getRequestDispatcher("/WEB-INF/post/modify.jsp").forward(request, response);
 	    
-	    // view로 포워드.
-	    request.getRequestDispatcher("/WEB-INF/post/detail.jsp").forward(request, response);
 	}
 
 }

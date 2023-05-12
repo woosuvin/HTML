@@ -29,6 +29,7 @@
         <main>
             <c:url var="postCreate" value="/post/create"></c:url>
             <form action="${ postCreate }" method="post">
+            <!-- action="요청 보내는 주소", 따로 지정하지 않으면 기본값은 현재 페이지 -->
                 <div>
                     <input type="text" name="title" placeholder="제목 입력" required autofocus />
                 </div>
