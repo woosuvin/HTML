@@ -58,6 +58,11 @@ public class PostCreateController extends HttpServlet {
 	    
 	    // PRG(Post-Redirect-Get) 패턴.
 	    
+	    /*
+	     * get 방식이 들어올 때 바로 jsp
+	     * post 방식이 들어올 때 redirect
+	     * 
+	     */
 	    
 	}
 

@@ -14,12 +14,33 @@
         
         <nav>
             <ul>
-                <li>
-                    <c:url var="postList" value="/post"></c:url>
-                    <a href="${ postList }">포스트 목록 페이지</a>
-                </li>
+                <!-- 로그인 한 username이 있는 경우, 로그인 한 상태인 경우에 로그아웃 보여줌 -->
+                <c:if test="${ not empty signedInUser }">
+                    <li>
+                        <span>${ signedInUser }</span>
+                        <c:url var="signOut" value="/user/signout"></c:url>
+                        <a href="${ signOut }">로그아웃</a>
+                    </li>
+                </c:if>
+                
+                <!-- 로그인 한 username이 없는 경우, 로그인 하지 않은 경우 로그인 보여줌 -->
+                <c:if test="${ empty signedInUser }">
+                    <li>
+                        <c:url var="signInPage" value="/user/signin"></c:url>
+                        <a href="${ signInPage }">로그인</a>
+                    </li>
+                </c:if>
+                
+                    <li>
+                        <c:url var="postList" value="/post"></c:url>
+                        <a href="${ postList }">포스트 목록 페이지</a>
+                    </li>
             </ul>
         </nav>
+        
+        <main>
+            <!-- TODO -->
+        </main>
         
 	</body>
 </html>
