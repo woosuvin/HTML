@@ -15,6 +15,11 @@
         <nav>
             <ul>
                 <li>
+                    <span>${ signedInUser }</span> 
+                    <c:url var="signOut" value="/user/signout"></c:url> 
+                    <a href="${ signOut }">로그아웃</a>
+                </li>
+                <li>
                     <c:url var="mainPage" value="/"></c:url>
                     <a href="${ mainPage }">메인페이지</a>
                 </li>
@@ -33,24 +38,26 @@
         
         <main>
             <form id="postModifyForm">
-                <div>
-                    <input id="id" name="id"
-                         type="number" value="${ post.id }" readonly />
-                </div>
-                <div>
-                    <input id="title" name="title" 
-                        type="text" value="${ post.title }" autofocus />
-                </div>
-                <div>
-                    <textarea id ="content" name="content" rows="5" cols="80" >${ post.content }</textarea>
-                </div>
-                <div>
-                    <input type="text" value="${ post.author }" readonly />
-                </div>
-                <div>
-                    <button id="btnUpdate">수정완료</button>
-                    <button id="btnDelete">삭제</button>
-                </div>
+                    <div>
+                        <input id="id" name="id"
+                             type="number" value="${ post.id }" readonly />
+                    </div>
+                    <div>
+                        <input id="title" name="title" 
+                            type="text" value="${ post.title }" autofocus />
+                    </div>
+                    <div>
+                        <textarea id ="content" name="content" rows="5" cols="80" >${ post.content }</textarea>
+                    </div>
+                    <div>
+                        <input type="text" value="${ post.author }" readonly />
+                    </div>
+                <c:if test="${ signedInUser == post.author }">
+                    <div>
+                        <button id="btnUpdate">수정완료</button>
+                        <button id="btnDelete">삭제</button>
+                    </div>
+                </c:if>
             </form>
         </main>
         

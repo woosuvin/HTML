@@ -15,6 +15,11 @@
         <nav>
             <ul>
                 <li>
+                    <span>${ signedInUser }</span> 
+                    <c:url var="signOut" value="/user/signout"></c:url> 
+                    <a href="${ signOut }">로그아웃</a>
+                </li>
+                <li>
                     <%-- <c:url>에서 "/" 요청주소는 context root까지. --%>
                     <c:url var="mainPage" value="/"></c:url>
                     <a href="${ mainPage }">메인 페이지</a>
@@ -37,7 +42,8 @@
                     <textarea rows="5" cols="80" name="content" placeholder="내용 입력" required></textarea>
                 </div>
                 <div>
-                    <input type="text" name="author" placeholder="아이디입력" required />
+                    <%-- 로그인한 사용자 아이디를 value로 설정, hidden: 숨김, 화면에는 보이지 않게. --%>
+                    <input type="hidden" name="author" value="${ signedInUser }" readonly />
                 </div>
                 <div>
                     <input type="submit" value="작성 완료" />
