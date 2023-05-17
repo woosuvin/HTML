@@ -22,7 +22,7 @@
     </filter>
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/*</url-pattern> <!-- 서버로 들어오는 모든 요청 필터처리, 그 다음 서블릿 호출 -->
     </filter-mapping>
     
     <!-- Listener 설정 -->
