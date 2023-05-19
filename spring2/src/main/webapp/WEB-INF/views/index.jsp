@@ -18,8 +18,8 @@
                 <h1>메인</h1>
             </header>
             
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <nav class="navbar-expand-lg bg-body-tertiary justify-content-center">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav justify-content-center">
                     <li class="nav-item">
                         <c:url var="postListPage" value="/post/list"></c:url>
                         <a class="nav-link active" aria-current="page" href="${ postListPage }">포스트 목록</a>

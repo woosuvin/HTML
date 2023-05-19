@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itwill.spring2.domain.Post;
+import com.itwill.spring2.dto.PostCreateDto;
+import com.itwill.spring2.dto.PostDetailDto;
+import com.itwill.spring2.dto.PostListDto;
+import com.itwill.spring2.dto.PostUpdateDto;
 import com.itwill.spring2.service.PostService;
 
 import lombok.RequiredArgsConstructor;
@@ -33,7 +37,7 @@ public class PostController {
         log.info("list()");
         
         // controller는 service 계층의 메서드를 호출해서 서비스 기능을 수행
-        List<Post> list = postService.read();
+        List<PostListDto> list = postService.read();
         
         // view에 보여줄 데이터를 Model에 저장.
         model.addAttribute("posts", list);
@@ -42,9 +46,58 @@ public class PostController {
         // /WEB-INF/views/post/list.jsp
     }
     
-    @PostMapping("/create")
+    @GetMapping("/create")
     public void create() {
+        log.info("GET: create()");
+       
+    }
+    
+    @PostMapping("/create")
+    public String create(PostCreateDto dto) {
+        log.info("POST: create({})", dto);
         
+        // service 계층의 method 호출 - 새 포스트 등록
+        int result = postService.create(dto);
+        log.info("포스트 등록 결과 = {}", result);
+        
+        // Post - Redirect - Get
+        return "redirect:/post/list";
+    }
+    
+    @GetMapping("/detail")
+    public void detail(long id, Model model) {
+        log.info("detail(id = {})", id);
+        
+        // service 계층의 method 호출해서 화면에 보여줄 PostDetialDto를 가져옴.
+        PostDetailDto dto = postService.read(id);
+        
+        // view에 PostDetailDto를 전달.
+        model.addAttribute("post", dto);
+    }
+    
+    @GetMapping("/modify")
+    public void modify(long id, Model model) {
+        log.info("modify(id = {})", id);
+        
+        PostDetailDto dto = postService.read(id);
+        model.addAttribute("post", dto);
+    }
+    
+    @PostMapping("/delete")
+    public String delete(long id) {
+        log.info("delete(id = {})", id);
+        
+        int result = postService.delete(id);
+        
+        return "redirect:/post/list";
+    }
+    
+    @PostMapping("/update")
+    public String update(PostUpdateDto dto) {
+        log.info("update({})", dto);
+        
+        int result = postService.update(dto);
+        return "redirect:/post/list";
     }
     
 }
