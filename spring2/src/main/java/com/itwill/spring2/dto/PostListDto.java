@@ -6,13 +6,15 @@ import com.itwill.spring2.domain.Post;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@ToString
 public class PostListDto { 
     
     // field
@@ -21,6 +23,8 @@ public class PostListDto {
     private String author;
     private Timestamp modifiedTime;
     // -> JSTL에서는 LocalDateTime 객체를 사용하지 못하기 때문에 Timestamp 타입으로 선언.
+    
+    private long rcnt; // 댓글 개수
     
     // Post 타입의 객체를 PostListDto 타입의 객체로 변환해서 리턴하는 메서드.
     public static PostListDto fromEntity (Post entity) {

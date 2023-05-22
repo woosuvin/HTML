@@ -23,11 +23,11 @@
             <ul class="nav justify-content-center">
                 <li class="nav-item">
                     <c:url var="mainPage" value="/" />
-                    <a class="nav-link active" aria-current="page" href="${ mainPage }">메인 페이지</a>
+                    <a class="nav-link active text-body-emphasis" aria-current="page" href="${ mainPage }">메인 페이지</a>
                 </li>
                 <li class="nav-item">
                     <c:url var="postListPage" value="/post/list" />
-                    <a class="nav-link"  href="${ postListPage }">포스트 목록</a>
+                    <a class="nav-link text-body-emphasis"  href="${ postListPage }">포스트 목록</a>
                 </li>
             </ul>
         </nav>

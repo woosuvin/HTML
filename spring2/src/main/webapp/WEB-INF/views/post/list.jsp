@@ -23,11 +23,11 @@
             <ul class="nav justify-content-center">
                 <li class="nav-item">
                     <c:url var="mainPage" value="/"></c:url>
-                    <a class="nav-link active" aria-current="page" href="${ mainPage }">메인 페이지</a>
+                    <a class="nav-link active text-body-emphasis" aria-current="page" href="${ mainPage }">메인 페이지</a>
                 </li>
                 <li class="nav-item">
                     <c:url var="postCreatePage" value="/post/create"></c:url>
-                    <a class="nav-link"  href="${ postCreatePage }">새 포스트 작성</a>
+                    <a class="nav-link text-body-emphasis"  href="${ postCreatePage }">새 포스트 작성</a>
                 </li>
             </ul>
         </nav>
@@ -52,6 +52,7 @@
                                         <c:param name="id" value="${ post.id }"></c:param>
                                     </c:url>
                                     <a href="${ postDetailPage }">${ post.title }</a>
+                                    <span class="text-primary-emphasis">[${ post.rcnt }]</span>
                                 </td>
                                 <td scope="row">${ post.author }</td>
                                 <td scope="row">

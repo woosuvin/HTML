@@ -36,9 +36,6 @@ public class PostService {
     // 포스트 목록 페이지
     public List<PostListDto> read() {
         log.info("read()");
-        
-        List<Post> list = postRepository.selectOrderByIdDesc();
-        
 //        List<PostListDto> result = new ArrayList<>();
 //        for (Post p : list) {
 //            PostListDto dto = PostListDto.fromEntity(p);
@@ -46,8 +43,12 @@ public class PostService {
 //        }
 //        return result;
         
-        return list.stream().map(PostListDto::fromEntity).toList(); // 람다 표현식 (익명 내부클래스)
+//      List<Post> list = postRepository.selectOrderByIdDesc();
+//        return list.stream().map(PostListDto::fromEntity).toList(); // 람다 표현식 (익명 내부클래스)
+        
+        return postRepository.selectWithReplyCount();
     }
+    
     
     // 포스트 상세 보기 페이지
     public PostDetailDto read(long id) {
@@ -69,9 +70,7 @@ public class PostService {
     // 포스트 업데이트
     public int update(PostUpdateDto dto) {
         log.info("updaet({})", dto);
-        
-        
-        return postRepository.updateTitleAndContent(dto.updateEntity());
+        return postRepository.updateTitleAndContent(dto.toEntity());
     }
     
     // 포스트 삭제

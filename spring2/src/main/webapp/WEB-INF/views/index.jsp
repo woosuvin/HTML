@@ -15,14 +15,14 @@
 	<body>
         <div class="container-fluid">
     		<header class="my-2 p-5 text-center text-bg-secondary">
-                <h1>메인</h1>
+                <h1>☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★</h1>
             </header>
             
             <nav class="navbar-expand-lg bg-body-tertiary justify-content-center">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav justify-content-center">
                     <li class="nav-item">
                         <c:url var="postListPage" value="/post/list"></c:url>
-                        <a class="nav-link active" aria-current="page" href="${ postListPage }">포스트 목록</a>
+                        <a class="nav-link active text-body-emphasis" aria-current="page" href="${ postListPage }">포스트 목록</a>
                     </li>
                 </ul>
             </nav>

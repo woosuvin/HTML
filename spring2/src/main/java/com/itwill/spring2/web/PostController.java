@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j // log 출력
 @Controller // DispatcherServlet에게 controller component로 등록.
-@RequiredArgsConstructor // 생성자에 의한 의존성 주입
+@RequiredArgsConstructor // 생성자에 의한 의존성 주입. final 변수를 argument로 갖는 생성자.
 @RequestMapping("/post") // PostController 클래스의 메서드들은 요청 주소가 "/post"로 시작.
 public class PostController {
 
@@ -97,7 +97,7 @@ public class PostController {
         log.info("update({})", dto);
         
         int result = postService.update(dto);
-        return "redirect:/post/list";
+        return "redirect:/post/detail?id=" + dto.getId();
     }
     
 }
