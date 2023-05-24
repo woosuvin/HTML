@@ -87,7 +87,9 @@
                     </div>    
                     
                     <!-- 댓글 목록 보여줄 영역 -->
-                    <div class="row my-3" id="replies">댓글 목록</div>
+                    <div class="row my-3" id="replies">
+                    
+                    </div>
                 </div>
             </section> <!-- 댓글 등록, 댓글 리스트 카드 -->
         </main>   

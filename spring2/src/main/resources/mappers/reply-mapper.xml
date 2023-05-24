@@ -7,7 +7,7 @@
     
     
     <select id="selectByPostId" resultType="com.itwill.spring2.domain.Reply"> <!-- mapper의 id = repository의 method -->
-        select * from REPLIES where POST_ID = #{post_id} order by ID desc
+        select * from REPLIES where POST_ID = #{post_id} order by MODIFIED_TIME desc
     </select>
     
     <insert id="insert"> <!-- time: 기본값이 있으니 안써도 됨 -->
