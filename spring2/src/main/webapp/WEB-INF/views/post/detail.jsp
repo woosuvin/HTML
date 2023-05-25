@@ -71,7 +71,11 @@
                 <div class="card-header text-bold">
                     <span>댓글</span>
                     <span id="replyCount">${ post.rcnt }</span>개 <!-- TODO: 실제 댓글 개수 -->
-                    <button class="btn" id="btnToggleReply" data-toggle="toggle-off">보이기</button>
+                    <button class="btn" id="btnToggleReply" data-toggle="toggle-off">
+                        <img id="toggleBtnIcon"
+                            src="../static/images/toggle-off.svg"
+                            alt="toggle-off" width="25" />
+                    </button>
                 </div>
                 <div class="card-body collapse" id="replyToggleDiv">
                     <!-- 내 댓글 등록 -->
@@ -92,6 +96,29 @@
                     </div>
                 </div>
             </section> <!-- 댓글 등록, 댓글 리스트 카드 -->
+            
+            <!-- 댓글 수정 모달 -->
+            <div id="replyUpdateModal" class="modal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">댓글 수정</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- 수정할 댓글 아이디(화면에 보이지 않게 d-none) -->
+                            <input id="modalReplyId" class="d-none" />
+                            <!-- 수정할 댓글 내용 -->
+                            <textarea id="modalReplyText" class="form-control"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                            <button id="modalBtnUpdate" type="button" class="btn btn-primary">저장</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </main>   
                 
         

@@ -39,11 +39,59 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     };
     
+    // 댓글 수정 모달 객체 생성 backdrop: true -> 바깥 화면 클릭하면 모달 창 사라짐
+    const modal = new bootstrap.Modal('div#replyUpdateModal', {backdrop: true});
+    
+    // 모달 elements
+    const modalInput = document.querySelector('input#modalReplyId');
+    const modalTextarea = document.querySelector('textarea#modalReplyText');
+    const modalBtnUpdate = document.querySelector('button#modalBtnUpdate');
+    
     // 댓글 수정 버튼의 이벤트 리스너 (콜백) 함수
     const showUpdateModal = (e) => {
-        // console.log(e);
-        console.log(e.target);
+        // console.log(e.target); e.target -> 타겟 위치 (버튼)
+        const id = e.target.getAttribute('data-id');
+        const reqUrl = `/spring2/api/reply/${id}`;
+        
+        // 서버로 GET 방식의 Ajax 요청을 보냄
+        axios.get(reqUrl)
+            .then((response) => { // 성공 응답이 왔을 때 실행할 콜백을 등록.
+                // response에 포함된 data 객체에서 id, replyText 값을 찾음.
+                const { id, replyText } = response.data;
+                
+                // id와 replyText를 modal의 input과 textarea에 씀.
+                modalInput.value = id;
+                modalTextarea.value = replyText;
+                
+                // modal 보여줌
+                modal.show();
+            }) 
+            .catch((error) => console.log(error)); // 실패 응답이 왔을 때 실행할 콜백 등록.
     };
+    
+    const updateReply = (e) => {
+        // 수정할 댓글 아이디
+        const id = modalInput.value;
+        
+        // 수정할 댓글 내용
+        const replyText = modalTextarea.value;
+        
+        // PUT 방식의 Ajax 요청을 보냄.
+        const reqUrl = `/spring2/api/reply/${id}`;
+        const data = { replyText }; // { key: value }, { replyText: replyText } key값이 변수 이름과 동일한 경우 간단히 쓰는 것 허용
+        
+        // Ajax 요청에 대한 성공/실패 콜백 등록.
+        axios.put(reqUrl, data)
+            .then((response) => {
+                alert(`댓글 업데이트 성공(${response.data})`);
+                getRepliesWithPostId(); // 댓글 목록 갱신, 업데이트
+            })
+            .catch((error) => console.log(error))
+            .finally(() => modal.hide());        
+    };
+    
+    // 모달에서 수정 내용 저장 버튼 이벤트 리스너 등록.
+    modalBtnUpdate.addEventListener('click', updateReply);
     
     // 댓글 목록 HTML을 작성하고 replies 영역에 추가하는 함수
     // argument data: Ajax 요청의 응답으로 전달받은 데이터.
@@ -124,26 +172,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // bootstrap collapse 객체를 생성 - 초기 상태는 화면에서 안보이는 상태(collapse)로 시작할거임
     const bsCollapse = new bootstrap.Collapse('div#replyToggleDiv', {toggle: false});
     
+    // 버튼 아이콘 이미지
+    const toggleBtnIcon = document.querySelector('img#toggleBtnIcon');
+    
     // 댓글 등록/목록 보이기/숨기기 토글 버튼에 이벤트 리스너 등록
     const btnToggleReply = document.querySelector('button#btnToggleReply');
-    
-    
     
     btnToggleReply.addEventListener('click', () => {
         bsCollapse.toggle();
         
-        const toggle = btnToggleReply.getAttribute('data-toggle'); // 'data-toggle'의 값인 toggle-off 가 return
+        //const toggle = btnToggleReply.getAttribute('data-toggle'); // 'data-toggle'의 값인 toggle-off 가 return
         
-        if (toggle === 'toggle-off') {
-            btnToggleReply.innerHTML = '숨기기';
-            btnToggleReply.setAttribute('data-toggle', 'toggle-on'); 
+        if (toggleBtnIcon.alt === 'toggle-off') {
+            toggleBtnIcon.src = '../static/images/toggle-on.svg';
+            toggleBtnIcon.alt = 'toggle-on';
+            //btnToggleReply.innerHTML = '숨기기';
+            //btnToggleReply.setAttribute('data-toggle', 'toggle-on'); 
             
             // 댓글 전체 목록을 서버에 요청하고, 응답이 오면 화면 갱신.
             getRepliesWithPostId();
             
         } else {
-            btnToggleReply.innerHTML = '보이기';
-            btnToggleReply.setAttribute('data-toggle', 'toggle-off');
+            toggleBtnIcon.src = '../static/images/toggle-off.svg';
+            toggleBtnIcon.alt = 'toggle-off';
+            replies.innerHTML = '';
+            
+            //btnToggleReply.innerHTML = '보이기';
+            //btnToggleReply.setAttribute('data-toggle', 'toggle-off');
         }
                 
     });
@@ -181,5 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }); // 에러 응답이 왔을 때 실행 할 callback 함수 등록
     };
     btnAddReply.addEventListener('click', createReply); // 함수를 외부에서 만드는 방법. callback 함수
+    
+    
     
 });
