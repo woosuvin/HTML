@@ -47,7 +47,7 @@
                         </div>
                         <div class="my-4">
                             <label class="form-label" for="content">내용</label>
-                            <textarea class="form-control" id="content" readonly>${ post.content }</textarea>
+                            <div class="form-control" id="content" readonly>${ post.content }</div>
                         </div>
                         <div class="my-4">
                             <label class="form-label" for="author">작성자 아이디</label>

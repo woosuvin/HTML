@@ -36,7 +36,7 @@ public class ReplyRepositoryTest {
         }
     }
     
-    //@Test
+    @Test
     public void testInsertReply() {
         Reply entity = Reply.builder()
                     .post_id(43)
@@ -69,7 +69,7 @@ public class ReplyRepositoryTest {
         Assertions.assertEquals(1, result);
     }
     
-    @Test
+    //@Test
     public void testCountReply() {
         long result = replyRepository.selectReplyCountWithPostId(43);
         log.info("count = {}", result);

@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() { // 익명 함수, cal
         
         const title = document.querySelector('input#title').value; // input에 입력된 값
         
-        const content = document.querySelector('textarea#content').value; // textarea에 입력된 값
+        const content = document.querySelector('textarea#summernote').value; // textarea에 입력된 값
         
         if(title === '' || content === '') { // 둘 중 하나라도 공란이면
             alert('제목, 내용을 입력하세요');

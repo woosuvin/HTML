@@ -58,10 +58,10 @@ public class RepositoryTest {
         Assertions.assertNull(post);
     }
     
-    //@Test
+    @Test
     public void testUpdate() {
         Post post = Post.builder()
-                .id(21) // 업데이트 할 포스트 아이디
+                .id(1) // 업데이트 할 포스트 아이디
                 .title("업데이트 test") // 업데이트 할 제목
                 .content("목요일") // 업데이트 할 내용
                 .build();
@@ -69,7 +69,7 @@ public class RepositoryTest {
         Assertions.assertEquals(1, result);
     }
     
-    @Test
+    //@Test
     public void testDelete() {
         int result = postRepository.deleteById(5);
         Assertions.assertEquals(0, result);
