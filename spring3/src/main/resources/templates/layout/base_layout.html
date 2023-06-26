@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleat/layout">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Spring Boot</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+            rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+	</head>
+	<body>
+        <div class="container-fluid">
+    		<header class="my-2 p-5 text-center" style="background-color: #e3f2fd;">
+                <h1>💫</h1>
+            </header>
+            
+            <nav class="navbar">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">메인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/post}">포스트</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/post/create}">새 포스트</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">로그인</a>
+                    </li>
+                </ul>
+            </nav>
+
+        
+
+        
+            <th:block layout:fragment="main"></th:block> <!-- th:blobk -> div랑 비슷, main 컨텐트가 삽입될 위치 -->
+            
+            
+            <footer class="my-2 p-5 text-center" style="background-color: #e3f2fd;">
+                <h1>footer</h1>
+            </footer>
+        </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>    
+            
+        <!-- 자바스크립트 파일 추가 위치 -->
+        <th:block layout:fragment="myscripts"></th:block>    
+	</body>
+</html>
