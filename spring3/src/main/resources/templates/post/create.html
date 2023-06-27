@@ -4,7 +4,32 @@
     layout:decorate="~{layout/base_layout}">
     
     <main layout:fragment="main">
-        <h1>새 포스트 작성 페이지</h1>
+        <div class="my-2 card"  style="padding: 0 30px 0 30px;"c>
+            <div class="my-5 text-center">
+                <h1>새 포스트</h1>
+            </div>
+            <div class="card-body">
+                <form method="post"> <!-- 요청 주소 따로 없으면 현재 주소로 보냄(/post/create) -->
+                    <div class="my-2">
+                        <label class="form-label" for="title">제목</label>
+                        <input class="form-control" id="title" name="title" type="text" required autofocus />
+                    </div>
+                    <div class="my-2">
+                        <label class="form-label" for="content">내용</label>
+                        <textarea class="form-control" id="content" name="content" required rows="10"></textarea>
+                    </div>
+                    <div class="my-2">
+                        <label class="form-label" for="author">작성자</label>
+                        <input class="form-control" id="author" name="author" type="text" />
+                    </div>    
+                    <div class="mt-5 d-grid gap-2 d-md-flex justify-content-md-center">
+                        <input class="btn btn-outline-info" type="submit" value="작성 완료" />
+                    </div>            
+                </form>    
+            </div>
+
+        </div>
+        
     </main>
 
 </html>

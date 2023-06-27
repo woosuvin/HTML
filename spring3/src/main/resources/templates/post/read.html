@@ -4,8 +4,36 @@
     layout:decorate="~{layout/base_layout}">
     
     <main layout:fragment="main">
-        <h1>포스트 목록 페이지</h1>
-    
+        <div class="my-2 card" style="padding: 0 30px 0 30px;">
+            <div class="my-5 text-center">
+                <h1>포스트 목록 페이지</h1>
+            </div>
+            
+            <div class="card-body">
+                <table class="table table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th>수정 시간</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <tr th:each="post : ${posts}"> <!-- 변수 : ${model에 addAttribute 한 변수} -->
+                            <td th:text="${post.id}"></td>
+                            <td>
+                                <a class="link-offset-2 link-underline-opacity-0 link-dark"
+                                 th:href="@{/post/detail?id={id} (id=${post.id})}" th:text="${post.title}"></a>
+                            </td>
+                            <td th:text="${post.author}"></td>
+                            <td th:text="${#temporals.format(post.modifiedTime, 'yyyy.MM.dd HH:mm:ss')}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+            </div>
+        </div>
     </main>
 
 </html>

@@ -20,6 +20,8 @@ public class BaseTimeEntity {
     // 표기법 - camel 표기법, 이름 - db와 같아야 함
     // Entity class의 field 이름은 db 테이블의 컬럼 이름과 같거나, 컬럼 이름을 camel 표기법으로 변환한 이름으로 작성.
     // (ex) 테이블 컬럼 created_time -> 클래스 필드 createdTime
+    // 엔터티 클래스의 필드 이름은 자바의 관습(camel 표기법)으로 작성.
+    // 테이블의 컬럼 이름은 데이터베이스의 관습(snake 표기법)을 따름.
     
     @CreatedDate // insert 될 때의 시간이 자동으로 기록됨.
     private LocalDateTime createdTime; 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleat/layout"
+    layout:decorate="~{layout/base_layout}">
+    
+    <main layout:fragment="main">
+        <div class="my-2 card" style="padding: 0 30px 0 30px;">
+            <div class="my-5 text-center">
+                <h1>포스트 상세보기</h1>
+            </div>
+            
+            <div class="card-body">
+                <form>
+                    <small class="card-text" th:text="|NO. ${post.id}|"></small>
+                    <h2 class="card-title" th:text="${post.title}"></h2>
+                    
+                    <p class="card-text" th:text="|작성자: ${post.author}|"></p>
+                    
+                    <hr />
+                    
+                    <div class="my-2">
+                        <label class="form-label" for="content">내용</label>
+                        <textarea class="form-control" id="content" th:text="${post.content}" readonly></textarea>
+                    </div>
+                    
+                    <hr />
+                    
+                    <p class="card-text text-end" 
+                    th:text="|작성 시간: ${#temporals.format(post.createdTime, 'yyyy.MM.dd HH:mm:ss')} / 수정 시간: ${#temporals.format(post.modifiedTime, 'yyyy.MM.dd HH:mm:ss')}|"></p>
+                    
+                </form>
+                <div class="mt-5 d-grid gap-2 d-md-flex justify-content-md-center">
+                    <a class="btn btn-outline-info" th:href="@{/post/modify?id={id} (id=${post.id})}">수정</a>
+                </div>
+            </div>
+        
+        </div>
+    
+    </main>
+</html>
