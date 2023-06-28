@@ -26,11 +26,11 @@
                         <label class="form-label" for="author">작성자</label>
                         <input class="form-control" id="author" name="author" th:value="${post.author}" readonly />
                     </div>    
-                               
                 </form> 
                 <div class="mt-5 d-grid gap-2 d-md-flex justify-content-md-center">
                     <button class="btn btn-outline-info" id="btnDelete">삭제</button>
-                    <button class="btn btn-outline-info" id="btnUpdate">수정 완료</button>
+                    <button class="btn btn-info text-white" id="btnUpdate">수정 완료</button>
+                    <!-- form 안에 있는 버튼은 무조건 submit 기능을 하므로 밖에 위치해야 함 -->
                 </div>    
             </div>
 

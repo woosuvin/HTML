@@ -12,7 +12,7 @@
             <div class="card-body">
                 <form>
                     <small class="card-text" th:text="|NO. ${post.id}|"></small>
-                    <h2 class="card-title" th:text="${post.title}"></h2>
+                    <h2 class="card-title my-2" th:text="${post.title}"></h2>
                     
                     <p class="card-text" th:text="|작성자: ${post.author}|"></p>
                     
@@ -34,6 +34,17 @@
                 </div>
             </div>
         
+        </div>
+        
+        <div class="my-2 card"> <!-- 댓글 div -->
+            <div class="card-header">
+                <span>댓글</span>
+                <span id="replyCount" th:text="${replyCount}"></span>
+                <button class="btn btn-info btn-sm" id="btnToggleReply">보이기</button>
+            </div>
+            
+            <div class="card-body">
+            </div>
         </div>
     
     </main>
