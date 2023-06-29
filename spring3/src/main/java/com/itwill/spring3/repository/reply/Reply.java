@@ -1,5 +1,6 @@
 package com.itwill.spring3.repository.reply;
 
+import com.itwill.spring3.dto.reply.ReplyUpdateDto;
 import com.itwill.spring3.repository.BaseTimeEntity;
 import com.itwill.spring3.repository.post.Post;
 
@@ -12,6 +13,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -19,6 +22,8 @@ import lombok.ToString;
 
 @NoArgsConstructor
 @Getter
+@AllArgsConstructor
+@Builder
 @ToString(exclude = {"post"})
 @Entity
 @Table(name = "REPLIES")
@@ -40,5 +45,9 @@ public class Reply extends BaseTimeEntity {
     @Column(nullable = false)
     private String writer; // 댓글 작성자
     
-    
+    public Reply update(ReplyUpdateDto dto) {
+        this.id = dto.getId();
+        this.replyText = dto.getReplyText();
+        return this;
+    }
 }

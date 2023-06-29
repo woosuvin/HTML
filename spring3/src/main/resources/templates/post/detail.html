@@ -11,16 +11,16 @@
             
             <div class="card-body">
                 <form>
-                    <small class="card-text" th:text="|NO. ${post.id}|"></small>
+                    <small>NO. </small><small class="card-text" id="id" th:text="${post.id}"></small>
                     <h2 class="card-title my-2" th:text="${post.title}"></h2>
                     
-                    <p class="card-text" th:text="|작성자: ${post.author}|"></p>
+                    <p class="card-text fw-bold" th:text="${post.author}"></p>
                     
                     <hr />
                     
                     <div class="my-2">
-                        <label class="form-label" for="content">내용</label>
-                        <textarea class="form-control" id="content" th:text="${post.content}" readonly></textarea>
+                        <label class="form-label d-none" for="content">내용</label>
+                        <div class="form-control" id="content" th:text="${post.content}"  style="white-space:pre;"></div>
                     </div>
                     
                     <hr />
@@ -29,7 +29,7 @@
                     th:text="|작성 시간: ${#temporals.format(post.createdTime, 'yyyy.MM.dd HH:mm:ss')} / 수정 시간: ${#temporals.format(post.modifiedTime, 'yyyy.MM.dd HH:mm:ss')}|"></p>
                     
                 </form>
-                <div class="mt-5 d-grid gap-2 d-md-flex justify-content-md-center">
+                <div class="mt-4 d-grid gap-2 d-md-flex justify-content-md-center">
                     <a class="btn btn-outline-info" th:href="@{/post/modify?id={id} (id=${post.id})}">수정</a>
                 </div>
             </div>
@@ -37,15 +37,29 @@
         </div>
         
         <div class="my-2 card"> <!-- 댓글 div -->
-            <div class="card-header">
+            <div class="my-2 px-3">
                 <span>댓글</span>
                 <span id="replyCount" th:text="${replyCount}"></span>
                 <button class="btn btn-info btn-sm" id="btnToggleReply">보이기</button>
             </div>
             
-            <div class="card-body">
+            <div class="card-body collapse" id="replyToggleDiv">
+                <div class="my-2 px-2 row">
+                    <div class="my-2 input-group">
+                        <textarea class="form-control" id="replyText" placeholder="댓글 입력"></textarea>
+                        <button class="btn btn-outline-info" id="btnReplyCreate">등록</button>
+                    </div>
+                </div>
+                
+                <!-- 댓글 보여줄 영역 -->
+                <div class="my-3 row" id="replies"></div>
             </div>
         </div>
     
     </main>
+    
+    <th:block layout:fragment="myscripts">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/js/reply/reply.js"></script>
+    </th:block>
 </html>
