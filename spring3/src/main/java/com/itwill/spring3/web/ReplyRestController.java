@@ -3,6 +3,7 @@ package com.itwill.spring3.web;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class ReplyRestController {
     
     private final ReplyService replyService;
     
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/all/{postId}") // {} -> pathVariable
     public ResponseEntity<List<Reply>> allReplies(@PathVariable long postId) { // 중괄호 안과 이름 같아야 함
         log.info("allReplies(postId={})", postId);
@@ -36,6 +38,7 @@ public class ReplyRestController {
         return ResponseEntity.ok(list);
     }
     
+    @PreAuthorize("hasRole('USER')")
     @PostMapping
     public ResponseEntity<Reply> create(@RequestBody ReplyCreateDto dto) {
         log.info("create(dto={})", dto);
@@ -44,6 +47,7 @@ public class ReplyRestController {
         return ResponseEntity.ok(reply);
     }
     
+    @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable long id) {
         log.info("delete(id={})", id);
@@ -51,10 +55,11 @@ public class ReplyRestController {
         return ResponseEntity.ok("Success");
     }
     
+    @PreAuthorize("hasRole('USER')")
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@RequestBody ReplyUpdateDto dto) {
-        log.info("update(dto={})", dto);
-        replyService.update(dto);
+    public ResponseEntity<String> update(@PathVariable long id, @RequestBody ReplyUpdateDto dto) {
+        log.info("update(id={}, dto={})",id, dto);
+        replyService.update(id, dto);
         return ResponseEntity.ok("Success");
     }
     

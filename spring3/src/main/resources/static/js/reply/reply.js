@@ -44,20 +44,26 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const updateReply = (e) => {
-        const id = e.target.getAttribute('data-id');
-        const textAreaId = `#replyText_${id}`;
-        const replyText = document.querySelector(textAreaId).value;
-        const data = {id, replyText};
+        const replyId = e.target.getAttribute('data-id'); // 댓글 아이디
+        const textAreaId = `#replyText_${id}`; // 댓글 입력 textarea 아이디
+        const replyText = document.querySelector('textarea.replyText').value;
         
-        const reqUrl = `/api/reply/update/${id}`;
+        if (!replyText.split(' ').join('')) {
+            alert('내용을 입력하세요.');
+            return;
+        }
+        
+        const reqUrl = `/api/reply/update/${replyId}`; // 요청 주소. replyId의 값이 가는 것.
+        const data = {replyText}; // {replyText : replyText}, 요청 데이터(수정할 댓글 내용)
         
         axios
-            .put(reqUrl, data)
+            .put(reqUrl, data) // PUT 방식의 Ajax 요청을 보냄
             .then((response) => {
                 console.log(response);
+                console.log(replyText);
                 getRepliesWithPostId();
-            })
-            .catch((error) => console.log(error));
+            }) // 성공 응답일 때 동작할 콜백을 등록
+            .catch((error) => console.log(error)); // 에러 응답일 때 동작할 콜백을 등록
     };
     
     const makeReplyElements = (data) => {
@@ -74,22 +80,22 @@ document.addEventListener('DOMContentLoaded', () => {
         let htmlStr = '';
         for (let reply of data) {
             htmlStr += `
-                <div class="col-12">
+                <div class="">
                     <div class="card mb-2 px-2">
-                        <div>
-                            <span class="d-none">${reply.id}</span>
-                            <small class="fw-bold">${reply.writer}</small>
-                            <small>${reply.modifiedTime}</small>
-                        </div>
-                        
-                        <div class="row mb-2">
-                            <div class="form-floating col-10">
-                                <textarea class="form-control" id="replyText_${reply.id}" >${reply.replyText}</textarea>
+                        <div class="row mt-2 mx-1">
+                            <div class="col-10">
+                                <span class="d-none">${reply.id}</span>
+                                <small class="fw-bold">${reply.writer}</small>
+                                <small class="text-secondary">${reply.modifiedTime}</small>
                             </div>
                             <div class="col-2 d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button class="btnModify btn btn-info btn-sm" data-id="${reply.id}">수정</button>
-                                <button class="btnDelete btn btn-outline-info btn-sm" data-id="${reply.id}">삭제</button>
-                            </div>
+                                    <button class="btnModify btn btn-info btn-sm" data-id="${reply.id}">수정</button>
+                                    <button class="btnDelete btn btn-outline-info btn-sm" data-id="${reply.id}">삭제</button>
+                            </div>  
+                        </div>
+                        
+                        <div class="p-2">
+                                <textarea class="replyText form-control" id="replyText_${reply.id}" >${reply.replyText}</textarea>
                         </div>
                     </div>
                 </div>

@@ -74,10 +74,15 @@ public class ReplyService {
         replyRepository.deleteById(id);
     }
     
-    @Transactional
-    public void update(ReplyUpdateDto dto) {
-        Reply entity = replyRepository.findById(dto.getId()).orElseThrow();
-        entity.update(dto);
+    @Transactional // -> DB에서 검색한 엔터티를 수정하면, 트랜젝션이 끝나는 시점에 update 쿼리가 자동으로 실행됨.
+    public void update(long id, ReplyUpdateDto dto) {
+        log.info("update(id={}, dto={})", id, dto);
+        
+        // 1. 댓글 아이디로 DB에서 엔터디를 검색(select):
+        Reply entity = replyRepository.findById(id).orElseThrow();
+        
+        // 2. 검색한 엔터티의 property를 수정:
+        entity.update(dto.getReplyText());
     }
     
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
     xmlns:layout="http://www.ultraq.net.nz/thymeleat/layout">
 	<head>
 		<meta charset="UTF-8"/>
@@ -13,7 +14,7 @@
                 <h1>SPRING BOOT APP</h1>
             </header>
             
-                <nav class="navbar justify-content-center text-white">
+                <nav class="navbar justify-content-center">
                     <ul class="nav">
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/}">메인</a>
@@ -24,9 +25,22 @@
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/post/create}">새 포스트</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link">로그인</a>
-                        </li>
+                            <th:block sec:authorize="isAuthenticated()"> <!-- 인증된 사용자이면(로그인 상태이면) -->
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/logout}">log out</a>
+                                </li>
+                                <li class="nav-item">
+                                    <span class="nav-link disabled"  sec:authentication="name"></span> <!-- 로그인한 username 표시 -->
+                                </li>
+                            </th:block>
+                            <th:block sec:authorize="isAnonymous()"> <!-- 익명 사용자이면(로그인 하지 않은 상태이면) -->
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/login}">log in</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link disabled">join us</a>
+                                </li>
+                            </th:block>
                     </ul>
                 </nav>
         

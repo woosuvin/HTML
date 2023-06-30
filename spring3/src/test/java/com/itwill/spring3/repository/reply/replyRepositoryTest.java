@@ -38,9 +38,9 @@ public class replyRepositoryTest {
         Post post = postRepository.findById(41L).orElseThrow();
         
         // 해당 포스트에 달린 모든 댓글 검색:
-        List<Reply> list = replyRepository.findByPost(post);
-        for (Reply x : list) {
-            log.info(x.toString());
-        }
+        //List<Reply> list = replyRepository.findByPost(post);
+        /*
+         * for (Reply x : list) { log.info(x.toString()); }
+         */
     }
 }

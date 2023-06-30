@@ -2,6 +2,7 @@ package com.itwill.spring3.web;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,6 @@ import com.itwill.spring3.dto.PostCreateDto;
 import com.itwill.spring3.dto.PostSearchDto;
 import com.itwill.spring3.dto.PostUpdateDto;
 import com.itwill.spring3.repository.post.Post;
-import com.itwill.spring3.repository.reply.Reply;
 import com.itwill.spring3.service.PostService;
 import com.itwill.spring3.service.ReplyService;
 
@@ -41,6 +41,7 @@ public class PostController {
         return "/post/read"; // view 이름 return
     }
     
+    @PreAuthorize("hasRole('USER')") // 페이지 접근 이전에 인증(권한, 로그인) 여부를 확인
     @GetMapping("/create")
     public void create() {
         log.info("create:GET");
@@ -58,6 +59,7 @@ public class PostController {
         return "redirect:/post";
     }
     
+    @PreAuthorize("hasRole('USER')")
     // "/post/detail", "/post/modify" 요청 주소들을 처리하는 controller method
     @GetMapping({"/detail", "/modify"})
     public void read(long id, Model model) {
@@ -77,6 +79,7 @@ public class PostController {
         // detail -> detail.html, modify -> modify.html
     }
     
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/delete")
     public String delete(long id) {
         log.info("delete(id={})", id);
@@ -84,6 +87,7 @@ public class PostController {
         return "redirect:/post";
     }
     
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/update")
     public String update(PostUpdateDto dto) {
         postService.update(dto);
