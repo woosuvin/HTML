@@ -29,7 +29,10 @@
                     th:text="|작성 시간: ${#temporals.format(post.createdTime, 'yyyy.MM.dd HH:mm:ss')} / 수정 시간: ${#temporals.format(post.modifiedTime, 'yyyy.MM.dd HH:mm:ss')}|"></p>
                     
                 </form>
-                <div class="mt-4 d-grid gap-2 d-md-flex justify-content-md-center">
+                
+                <!-- 로그인 사용자와 포스트 작성자가 같으면 수정 버튼 보여줌 -->
+                <div class="mt-4 d-grid gap-2 d-md-flex justify-content-md-center"
+                    th:if="${#authentication.name} == ${post.author}">
                     <a class="btn btn-outline-info" th:href="@{/post/modify?id={id} (id=${post.id})}">수정</a>
                 </div>
             </div>
@@ -44,6 +47,7 @@
             </div>
             
             <div class="card-body collapse" id="replyToggleDiv">
+                <div class="d-none" id="authName" th:text="${#authentication.name}" ></div> <!-- 로그인 아이디 -->
                 <div class="my-2 px-2">
                     <div class="my-2 input-group">
                         <textarea class="form-control" id="replyText" placeholder="댓글 입력"></textarea>

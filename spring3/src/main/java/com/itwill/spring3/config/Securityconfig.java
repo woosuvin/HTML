@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @EnableMethodSecurity
 @Configuration // 스프링 컨테이너에서 빈(bean)으로 생성, 관리 - 필요한 곳에 의존성 주입.
-@EnableWebSecurity
+//@EnableWebSecurity
 public class Securityconfig {
     // Spring Security 5 버전부터 비밀번호는 반드시 암호화를 해야 함.
     // 비밀번호를 암호화하지 않으면 HTTP 403(access denied, 접근 거부) 또는 HTTP 500(internal server, 내부 서버 오류)가 발생함. 
@@ -27,6 +27,7 @@ public class Securityconfig {
     }
     
     // 로그인할 때 사용할 임시 사용자(메모리에 임시 저장) 생성
+    /*
     @Bean
     public UserDetailsService inMemoryUserDetailsService() {
         // 사용자 상세 정보, DB에 들어가는 user 정보, Entity 개념
@@ -50,6 +51,7 @@ public class Securityconfig {
         
         return new InMemoryUserDetailsManager(user1, user2, user3);
     }
+    */
     
     // Security Filter 설정 bean
     // 로그인, 로그아웃 설정

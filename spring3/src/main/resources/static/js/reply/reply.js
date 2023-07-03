@@ -4,6 +4,9 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // 로그인한 사용자 이름 -> 댓글 등록, 수정, 삭제할 때 사용하기 위해서.
+    const authName = document.querySelector('div#authName').innerText;
+    
     // 부트스트랩 Collapse 객체 생성, 초기 상태는 화면에 안보임.
     const bsCollapse = new bootstrap.Collapse('div#replyToggleDiv', {toggle: false});
     // 토글 버튼을 찾고 이벤트 리스너 등록
@@ -61,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then((response) => {
                 console.log(response);
                 console.log(replyText);
-                getRepliesWithPostId();
+                getRepliesWithPostId(); // 댓글 목록 새로고침
             }) // 성공 응답일 때 동작할 콜백을 등록
             .catch((error) => console.log(error)); // 에러 응답일 때 동작할 콜백을 등록
     };
@@ -81,22 +84,39 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let reply of data) {
             htmlStr += `
                 <div class="">
-                    <div class="card mb-2 px-2">
-                        <div class="row mt-2 mx-1">
+                    <div class="mb-2 px-2">
+                        <div class="row mt-2 mx-1 ">
                             <div class="col-10">
                                 <span class="d-none">${reply.id}</span>
                                 <small class="fw-bold">${reply.writer}</small>
                                 <small class="text-secondary">${reply.modifiedTime}</small>
                             </div>
-                            <div class="col-2 d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button class="btnModify btn btn-info btn-sm" data-id="${reply.id}">수정</button>
-                                    <button class="btnDelete btn btn-outline-info btn-sm" data-id="${reply.id}">삭제</button>
-                            </div>  
-                        </div>
+                            `
+            // 로그인한 사용자와 댓글 작성자가 같을 때만 삭제, 수정 버튼을 보여줌.
+            if (authName === reply.writer) {
+                htmlStr += `
+                                <div class="col-2 d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <button class="btnModify btn btn-info btn-sm" data-id="${reply.id}">수정</button>
+                                        <button class="btnDelete btn btn-outline-info btn-sm" data-id="${reply.id}">삭제</button>
+                                </div>
+                                </div>
                         
-                        <div class="p-2">
+                        <div class="px-2 pt-1">
                                 <textarea class="replyText form-control" id="replyText_${reply.id}" >${reply.replyText}</textarea>
                         </div>
+                            `;
+            }
+
+            else { // 다를경우 readonly
+                htmlStr += `
+                        </div>
+                        
+                        <div class="px-2 pt-1">
+                                <textarea class="replyText form-control" id="replyText_${reply.id}" readonly>${reply.replyText}</textarea>
+                        </div> 
+                        `;
+            }
+            htmlStr += `
                     </div>
                 </div>
             `;
@@ -137,8 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // 포스트 아이디, 댓글 내용 찾음.
         const postId = document.querySelector('#id').innerText;
         const replyText = document.querySelector('textarea#replyText').value;
-        // TODO: 댓글 작성자는 admin, 나중에 로그인 아이디 사용.
-        const writer = 'admin';
+        // 댓글 작성자는 로그인 아이디로 설정.
+        const writer = authName;
         
         // 댓글 내용이 비어 있으면 경고창을 보여주고 종료
         if (!replyText.split(' ').join('')) {

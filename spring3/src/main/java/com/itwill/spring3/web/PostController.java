@@ -48,6 +48,7 @@ public class PostController {
         // 리턴값이 없는 경우 view의 이름은 요청 주소와 같음
     }
     
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/create")
     public String create(PostCreateDto dto) {
         log.info("create(dto={}) POST", dto);
